@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+<div class="jumbotron text-center">
+  <div class="container">
+
+    <h1 class="display-3">My Resume</h1>
+    <p id="log">
+      <form action="/admin" class="class" method="POST">
+        <h3>Personal information</h3>
+        <label>Full Name: </label>
+        <input type="text" name="fullName" value="Anna Smith" /><br>
+        <label>Birthday: </label>
+        <input type="date" name="birthday" value="1995-04-10"/><br>
+        <label>Place Of Residence: </label>
+        <input type="text" name="residence" value="London, England" /><br>
+
+        <h3>Education</h3>
+        <label>School Name: </label>
+        <input type="text" name="schoolName" value="Tallinna Tööstushariduskeskus" /><br>
+        <label>Graduation Date: </label>
+        <input type="date" name="graduationDate" value="2021-06-18"/><br>
+
+        <h3>Technical skills</h3>
+        <label>Programming (Back-End/Front-End, Version Control)</label>
+        <input type="text" name="programming" value="Back-end, C#, Git" /><br>
+
+        <h3>Soft skills</h3>
+        <label>Time Management (rate from 1 to 5)</label>
+        <input type="number" name="timeManagement" value="5" min="1" max="5"/><br>
+        <label>Creative Thinking (rate from 1 to 5)</label>
+        <input type="number" name="creativeThinking " value="5" min="1" max="5" /><br>
+        <label>Teamwork (rate from 1 to 5)</label>
+        <input type="number" name="teamwork " value="5" min="1" max="5" /><br>
+
+        <h3>Image</h3>
+        <label for="img">Select Image:</label>
+        <input type="file" id="img" name="image" accept="image/*"><br>
+        <button type="submit">Submit</button>
+      </form>
+
+    </p>
+    
+    <hr />
+    <a href="/logout" class="btn btn-light btn-lg" role="button">Log Out</a>
+  </div>
+</div>
+<%- include('partials/footer') %> <%- include('partials/header') %>
