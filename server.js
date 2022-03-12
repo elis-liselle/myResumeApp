@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mainRouter = require("./routes/mainRoute");
 const mongoose = require("mongoose");
+const multer = require("multer");
 const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
 const passport = require("passport");

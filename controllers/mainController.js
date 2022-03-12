@@ -1,8 +1,15 @@
 const passport = require("passport");
-const User = require("../models/user");
 
+const express = require("express");
+const path = require("path");
+const app = express();
+
+const User = require("../models/user");
+const multer = require("multer");
 const Resume = require("../models/resume");
-let resumeList = [];
+
+const mongoose = require("mongoose");
+const ResumeFromMongoDb = mongoose.model("Resume");
 
 exports.getMainPage = (req, res) => {
   res.render("index");
@@ -62,20 +69,63 @@ exports.getAdminPage = (req, res) => {
         console.log(error);
       } else {
         console.log(usersFound);
-        // var logTime = new Date().toUTCString();
-        // let newLog = new Resume(logTime);
-        // newLog.saveLog();
-
-        // Log.fetchLogs((resume) => {
-        //   console.log(resume);
-          res.render("admin.ejs"); //, { myResume: resume });
-        // });
+        res.render("admin.ejs");
       }
     });
   } else {
     res.redirect("/authenticate");
   }
 };
+
+//setting multer
+let upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "./public/images");
+    },
+    filename: function (req, file, cb) {
+      cb(
+        null,
+        file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      );
+    },
+  }),
+});
+
+//app.post("/admin", upload.single("image"), (req, res) => {
+exports.postAdminPage = (req, res) => {
+    const fullName = req.body.fullName;
+    const birthday = req.body.birthday;
+    const residence = req.body.residence;
+    const schoolName = req.body.schoolName;
+    const graduationDate = req.body.graduationDate;
+    const technicalSkills = req.body.technicalSkills;
+    const timeManagement = req.body.timeManagement;
+    const creativeThinking = req.body.creativeThinking;
+    const teamwork = req.body.teamwork;
+    const image = req.body.image;
+
+    let newResume = new ResumeFromMongoDb();
+    newResume.fullName = fullName;
+    newResume.birthday = birthday;
+    newResume.residence = residence;
+    newResume.schoolName = schoolName;
+    newResume.graduationDate = graduationDate;
+    newResume.technicalSkills = technicalSkills;
+    newResume.timeManagement = timeManagement;
+    newResume.creativeThinking = creativeThinking;
+    newResume.teamwork = teamwork;
+    newResume.image = image;
+
+    newResume.save((error, response) => {
+      if (!error) {
+        console.log(response);
+        res.redirect("/");
+      } else {
+        console.log(error);
+      }
+    });
+  };
 
 exports.userLogout = (req, res) => {
   req.logout();

@@ -3,7 +3,9 @@ const mainController = require('../controllers/mainController');
 const router = express.Router();
 
 router.get("/", mainController.getMainPage);
+
 router.get("/admin", mainController.getAdminPage);
+router.post("/admin", mainController.postAdminPage);
 
 router.get("/authenticate", mainController.getAuthenticatePage);
 router.get("/register", mainController.getRegisterPage);
