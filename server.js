@@ -30,7 +30,7 @@ app.use(passport.session());
 
 app.use(mainRouter);
 
-const port = 5000;
+const port = process.env.Port;
 
 app.listen(port, () => {
   console.log("Server is running on port ${port}.");
